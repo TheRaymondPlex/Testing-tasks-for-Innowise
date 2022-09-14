@@ -32,6 +32,8 @@ class Task6
             throw new \InvalidArgumentException('You\'ve entered invalid type of variables! Change to integer!');
         } elseif ($month < 0 || $month > 12 || $lastMonth < 0 || $lastMonth > 12) {
             throw new \InvalidArgumentException('You\'ve entered invalid month! It can be from 1 to 12.');
+        } elseif ($year <= 0 || $lastYear <= 0) {
+            throw new \InvalidArgumentException('You\'ve entered invalid year! It can be positive only.');
         } else {
             $days_map_to_num = [
                 'Monday' => 0,
@@ -48,7 +50,7 @@ class Task6
             $current_year = $year;
             $days_in_month = [];
             for ($i = 1; $i <= 12; $i++) {
-                array_push($days_in_month, cal_days_in_month(CAL_GREGORIAN, $i, $current_year));
+                array_push($days_in_month, \cal_days_in_month(CAL_GREGORIAN, $i, $current_year));
             }
             // print_r($days_in_month);
 
@@ -84,7 +86,7 @@ class Task6
                     $current_month = 1;
                     $days_in_month = [];
                     for ($i = 1; $i <= 12; $i++) {
-                        array_push($days_in_month, cal_days_in_month(CAL_GREGORIAN, $i, $current_year));
+                        array_push($days_in_month, \cal_days_in_month(CAL_GREGORIAN, $i, $current_year));
                     }
                 }
                 $delta--;
@@ -95,8 +97,8 @@ class Task6
     }
 }
 
-$year = 2020;
-$lastYear = 2022;
-$month = 1;
-$lastMonth = 12;
+$year = 1900;
+$lastYear = 1900;
+$month = 2;
+$lastMonth = 3;
 Task6::main($year, $lastYear, $month, $lastMonth);
