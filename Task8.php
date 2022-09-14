@@ -37,4 +37,3 @@ $json = '{
             }
             }';
 Task8::main($json);
-
