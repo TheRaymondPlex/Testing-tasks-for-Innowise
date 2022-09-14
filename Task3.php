@@ -4,10 +4,10 @@ namespace src;
 
 class Task3
 {
-    public static function main(int $number): int
+    public static function main($number): int
     {
-        if (!is_int($number)) {
-            throw new \InvalidArgumentException('task3 function only accepts integers. Your input was: ' . $number . ' (' . gettype($number) . ')');
+        if (!is_int($number) || $number <= 0) {
+            throw new \InvalidArgumentException('task3 function only accepts positive integers. Your input was: ' . $number . ' (' . gettype($number) . ')');
         } else {
             $sum = 0;
             while ($number > 0 || $sum > 9) {
