@@ -30,7 +30,11 @@ class Task12
 
     public function divide(): static
     {
-        $this->result = $this->firstValue / $this->secondValue;
+        if ($this->secondValue == 0) {
+            throw new \InvalidArgumentException('You are trying to divide by zero!');
+        } else {
+            $this->result = $this->firstValue / $this->secondValue;
+        }
 
         return $this;
     }
@@ -58,7 +62,11 @@ class Task12
 
     public function divideBy(int $num): static
     {
-        $this->result = $this->result / $num;
+        if ($num == 0) {
+            throw new \InvalidArgumentException('You are trying to divide by zero!');
+        } else {
+            $this->result = $this->result / $num;
+        }
 
         return $this;
     }
@@ -79,8 +87,9 @@ class Task12
     }
 }
 
-$myCalc = new Task12(12, 6);
+$myCalc = new Task12(48, 6);
 
 echo $myCalc->add()->getResult() . '<br>';
 echo $myCalc->multiply()->getResult() . '<br>';
 echo $myCalc->add()->divideBy(9)->getResult() . '<br>';
+echo $myCalc->divide()->getResult() . '<br>';
