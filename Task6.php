@@ -16,94 +16,87 @@ namespace src;
 
 class Task6
 {
-    private function task6(int $year, int $lastYear, int $month, int $lastMonth, string $day = 'Monday'): int
-    {
-        $days_map_to_num = [
-            'Monday' => 0,
-            'Tuesday' => 1,
-            'Wednesday' => 2,
-            'Thursday' => 3,
-            'Friday' => 4,
-            'Saturday' => 5,
-            'Sunday' => 6,
-        ];
-        $day_to_count = $days_map_to_num[$day];
-
-        // Заполняем массив количествами дней для каждого месяца
-        $current_year = $year;
-        $days_in_month = [];
-        for ($i = 1; $i <= 12; $i++) {
-            array_push($days_in_month, cal_days_in_month(CAL_GREGORIAN, $i, $current_year));
-        }
-        // print_r($days_in_month);
-
-        // Дельта в месяцах между двумя датами.
-        $delta = $this->getDeltaInMonths($year, $lastYear, $month, $lastMonth);
-        if ($delta === 0) {
-            // Если дельта 0, тогда просто проверяем, является ли текущий первый день ожидаемым днем.
-            return $this->getDayOfWeek($year, $month) === $day_to_count ? 1 : 0;
-        } elseif ($delta < 0) {
-            // Переворачиваем, т.к. надо шагать в другую сторону.
-            $tmp = $lastYear;
-            $lastYear = $year;
-            $year = $tmp;
-            $tmp = $lastMonth;
-            $lastMonth = $month;
-            $month = $tmp;
-            $delta *= -1;
-        }
-
-        $current_day = $this->getDayOfWeek($year, $month);
-        $current_month = $month;
-        $count = $current_day === 0 ? 1 : 0;
-
-        // echo $current_day . PHP_EOL;
-        while ($delta != 0) {
-            $current_day = ($current_day + $days_in_month[$current_month - 1] % 7) % 7;
-            if ($current_day === $day_to_count) {
-                $count++;
-            }
-            $current_month++;
-            if ($current_month > 12) {
-                $current_year++;
-                $current_month = 1;
-                $days_in_month = [];
-                for ($i = 1; $i <= 12; $i++) {
-                    array_push($days_in_month, cal_days_in_month(CAL_GREGORIAN, $i, $current_year));
-                }
-            }
-            $delta--;
-        }
-
-        return $count;
-    }
-
-    public function getDayOfWeek($year, $month): int|string
+    public static function getDayOfWeek($year, $month): int|string
     {
         return date('N', strtotime("$year-$month-01")) - 1;
     }
 
-    public function getDeltaInMonths($yearA, $yearB, $monthA, $monthB): float|int
+    public static function getDeltaInMonths($yearA, $yearB, $monthA, $monthB): float|int
     {
         return ($yearB - $yearA) * 12 + $monthB - $monthA;
     }
 
-    public function main()
+    public static function main(int $year, int $lastYear, int $month, int $lastMonth, string $day = 'Monday'): int
     {
-        $year = 2020;
-        $lastYear = 2022;
-        $month = 1;
-        $lastMonth = 12;
-
         if (!is_int($year) || !is_int($lastYear) || !is_int($month) || !is_int($lastMonth)) {
             throw new \InvalidArgumentException('You\'ve entered invalid type of variables! Change to integer!');
         } elseif ($month < 0 || $month > 12 || $lastMonth < 0 || $lastMonth > 12) {
             throw new \InvalidArgumentException('You\'ve entered invalid month! It can be from 1 to 12.');
         } else {
-            echo $this->task6($year, $lastYear, $month, $lastMonth);
+            $days_map_to_num = [
+                'Monday' => 0,
+                'Tuesday' => 1,
+                'Wednesday' => 2,
+                'Thursday' => 3,
+                'Friday' => 4,
+                'Saturday' => 5,
+                'Sunday' => 6,
+            ];
+            $day_to_count = $days_map_to_num[$day];
+
+            // Заполняем массив количествами дней для каждого месяца
+            $current_year = $year;
+            $days_in_month = [];
+            for ($i = 1; $i <= 12; $i++) {
+                array_push($days_in_month, cal_days_in_month(CAL_GREGORIAN, $i, $current_year));
+            }
+            // print_r($days_in_month);
+
+            // Дельта в месяцах между двумя датами.
+            $delta = Task6::getDeltaInMonths($year, $lastYear, $month, $lastMonth);
+            if ($delta === 0) {
+                // Если дельта 0, тогда просто проверяем, является ли текущий первый день ожидаемым днем.
+                return Task6::getDayOfWeek($year, $month) === $day_to_count ? 1 : 0;
+            } elseif ($delta < 0) {
+                // Переворачиваем, т.к. надо шагать в другую сторону.
+                $tmp = $lastYear;
+                $lastYear = $year;
+                $year = $tmp;
+                $tmp = $lastMonth;
+                $lastMonth = $month;
+                $month = $tmp;
+                $delta *= -1;
+            }
+
+            $current_day = Task6::getDayOfWeek($year, $month);
+            $current_month = $month;
+            $count = $current_day === 0 ? 1 : 0;
+
+            // echo $current_day . PHP_EOL;
+            while ($delta != 0) {
+                $current_day = ($current_day + $days_in_month[$current_month - 1] % 7) % 7;
+                if ($current_day === $day_to_count) {
+                    $count++;
+                }
+                $current_month++;
+                if ($current_month > 12) {
+                    $current_year++;
+                    $current_month = 1;
+                    $days_in_month = [];
+                    for ($i = 1; $i <= 12; $i++) {
+                        array_push($days_in_month, cal_days_in_month(CAL_GREGORIAN, $i, $current_year));
+                    }
+                }
+                $delta--;
+            }
+
+            return $count;
         }
     }
 }
 
-$task6 = new Task6();
-$task6->main();
+$year = 2020;
+$lastYear = 2022;
+$month = 1;
+$lastMonth = 12;
+Task6::main($year, $lastYear, $month, $lastMonth);
