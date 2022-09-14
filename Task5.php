@@ -55,7 +55,7 @@ class Task5
         return ceil($d);
     }
 
-    public static function main($n): string
+    public static function fib($n): string
     {
         $a = '0';
         $b = '1';
@@ -72,7 +72,7 @@ class Task5
     }
 
 
-    #[Pure] public static function fib($n): int
+    #[Pure] public static function main($n): int
     {
         $i = 0;
         while (true) {
@@ -86,12 +86,12 @@ class Task5
 
 // Тесты
 // Последовательность Фибоначчи
-//for ($i = 0; $i < 20; $i++) {
-//    echo $i . "=>" . Task5::fib($i) . PHP_EOL;
-//}
+for ($i = 0; $i < 20; $i++) {
+    echo $i . "=>" . Task5::fib($i) . PHP_EOL;
+}
 
 //echo "First serial number of Fibonacci with length length 2: " . Task5::main(2) . PHP_EOL;
 //echo "First serial number of Fibonacci with length length 3: " . Task5::main(3) . PHP_EOL;
 
 $n = 100;
-Task5::main(Task5::fib($n));
+echo Task5::fib(Task5::main($n));
