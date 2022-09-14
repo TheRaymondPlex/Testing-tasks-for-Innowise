@@ -2,20 +2,14 @@
 
 namespace src;
 
-use DateTime;
-use InvalidArgumentException;
-
 date_default_timezone_set('Europe/Minsk');
-
 class Task2
 {
     private static function isDate(string $input): bool
     {
         if (preg_match('/^(0[1-9]|[1-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-[0-9]{4}$/', $input)) {
-
             return true;
         } else {
-
             return false;
         }
     }
@@ -23,13 +17,12 @@ class Task2
     public static function main(string $date): string
     {
         if (!Task2::isDate($date)) {
-            throw new InvalidArgumentException('Invalid date format! Acceptable date format is DD-MM-YYYY');
+            throw new \InvalidArgumentException('Invalid date format! Acceptable date format is DD-MM-YYYY');
         } else {
-
-            return date_diff(new DateTime($date), new DateTime())->days;
+            return date_diff(new \DateTime($date), new \DateTime())->days;
         }
     }
 }
 
 $date = '09-03-2023';
-Task2::main($date);
+echo Task2::main($date);
