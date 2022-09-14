@@ -6,40 +6,35 @@ header('Content-type: text/plain');
 
 class Task8
 {
-    private function task8(string $json): string
+    public static function main(string $json): string
     {
-        $jsonDecoded = json_decode($json, true);
+        if (!is_string($json)) {
+            throw new \InvalidArgumentException('task8 function only accepts strings. Your input was: ' . $json . ' (' . gettype($json) . ')');
+        } else {
+            $jsonDecoded = json_decode($json, true);
+            $output = '';
 
-        $output = '';
-        foreach ($jsonDecoded as $key => $item) {
-            if (!is_array($item)) {
-                $output .= "$key: $item\r\n";
-            } else {
-                foreach ($item as $k => $v) {
-                    $output .= "$k: $v\r\n";
+            foreach ($jsonDecoded as $key => $item) {
+                if (!is_array($item)) {
+                    $output .= "$key: $item\r\n";
+                } else {
+                    foreach ($item as $k => $v) {
+                        $output .= "$k: $v\r\n";
+                    }
                 }
             }
+
+            return $output;
         }
-
-        return $output;
     }
+}
 
-    public function main()
-    {
-        $jsonInput = '{
+$json = '{
             "Title": "The Cuckoos Calling",
             "Author": "Robert Galbraith",
             "Detail": {
             "Publisher": "Little Brown"
             }
             }';
-        if (!is_string($jsonInput)) {
-            throw new \InvalidArgumentException('task8 function only accepts strings. Your input was: ' . $jsonInput . ' (' . gettype($jsonInput) . ')');
-        } else {
-            echo $this->task8($jsonInput);
-        }
-    }
-}
+Task8::main($json);
 
-$task8 = new Task8();
-$task8->main();
