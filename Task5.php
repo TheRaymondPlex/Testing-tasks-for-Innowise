@@ -45,7 +45,6 @@ class Task5
     public static function numberOfDigits($n): float|int
     {
         if ($n == 1) {
-
             return 1;
         }
 
@@ -77,7 +76,6 @@ class Task5
         $i = 0;
         while (true) {
             if (Task5::numberOfDigits(++$i) >= $n) {
-
                 return $i;
             }
         }
@@ -86,12 +84,12 @@ class Task5
 
 // Тесты
 // Последовательность Фибоначчи
-for ($i = 0; $i < 20; $i++) {
-    echo $i . "=>" . Task5::fib($i) . PHP_EOL;
-}
+//for ($i = 0; $i < 20; $i++) {
+//    echo $i . "=>" . Task5::fib($i) . PHP_EOL;
+//}
 
 //echo "First serial number of Fibonacci with length length 2: " . Task5::main(2) . PHP_EOL;
 //echo "First serial number of Fibonacci with length length 3: " . Task5::main(3) . PHP_EOL;
 
 $n = 100;
-echo Task5::fib(Task5::main($n));
+Task5::fib(Task5::main($n));
