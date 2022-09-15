@@ -19,14 +19,17 @@ class Task2
         if (!Task2::isDate($date)) {
             throw new \InvalidArgumentException('Invalid date format! Acceptable date format is DD-MM-YYYY');
         } else {
-            $diffDays = strtotime($date) - time();
+            $diffDays = strtotime($date) - strtotime('today');
             if ($diffDays < 0) {
                 $date = date('d-m-Y', strtotime($date . ' next year'));
                 $diffDays = strtotime($date) - time();
             }
-            $days = round($diffDays / 86400);
+            $days = ceil($diffDays / 86400);
             if ($days == 365) {
                 $days = 0;
+            }
+            if ($days < 0) {
+                $days *= -1;
             }
 
             return $days;
@@ -34,5 +37,5 @@ class Task2
     }
 }
 
-$date = '14-09-2022';
+$date = '15-09-2022';
 Task2::main($date);
