@@ -35,4 +35,4 @@ class Task2
 }
 
 $date = '14-09-2022';
-echo Task2::main($date);
+Task2::main($date);
