@@ -9,6 +9,7 @@ class Task8
         if (!is_string($json)) {
             throw new \InvalidArgumentException('Main function accepts strings only.');
         } else {
+            $json = str_replace(['\n', '\r'], '', $json);
             $jsonDecoded = json_decode($json, true);
             if (!is_array($jsonDecoded)) {
                 throw new \InvalidArgumentException('$jsonDecoded must be array type only!');
