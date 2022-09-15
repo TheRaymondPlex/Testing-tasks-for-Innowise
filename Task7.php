@@ -8,7 +8,7 @@ class Task7
     {
         if (!is_array($arr) || empty($arr)) {
             throw new \InvalidArgumentException('Invalid data! Only full arrays are accepted!');
-        } elseif ($position <= 0 || $position > (count($arr) - 1)) {
+        } elseif ($position < 0 || $position > (count($arr) - 1)) {
             throw new \InvalidArgumentException('Invalid position! Your input was: ' . $position . ' (' . gettype($position) . ')');
         } else {
             unset($arr[$position]);
@@ -20,5 +20,5 @@ class Task7
 }
 
 $arr = [1, 2, 3, 4, 5];
-$n = 3;
+$n = 0;
 Task7::main($arr, $n);
