@@ -6,11 +6,16 @@ class Task9
 {
     public static function main(array $arr, int $number): array
     {
-        if (!is_array($arr)) {
+        if (!is_array($arr) || count($arr) < 3) {
             throw new \InvalidArgumentException('Invalid array provided!');
-        } elseif (!is_int($number) || $number < 0) {
+        } elseif (!is_int($number) || $number <= 0) {
             throw new \InvalidArgumentException('Invalid target number provided!');
         } else {
+            foreach ($arr as $k => $v) {
+                if ($v < 0) {
+                    throw new \InvalidArgumentException('There must be only positive values in array!');
+                }
+            }
             $resArray = [];
             for ($i = 0; $i < (count($arr) - 2); $i++) {
                 if ($arr[$i] + $arr[$i + 1] + $arr[$i + 2] == $number) {
