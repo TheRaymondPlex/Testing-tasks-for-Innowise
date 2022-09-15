@@ -2,16 +2,17 @@
 
 namespace src;
 
-header('Content-type: text/plain');
-
 class Task8
 {
     public static function main(string $json): string
     {
         if (!is_string($json)) {
-            throw new \InvalidArgumentException('task8 function only accepts strings. Your input was: ' . $json . ' (' . gettype($json) . ')');
+            throw new \InvalidArgumentException('Main function accepts strings only.');
         } else {
             $jsonDecoded = json_decode($json, true);
+            if (!is_array($jsonDecoded)) {
+                throw new \InvalidArgumentException('$jsonDecoded must be array type only!');
+            }
             $output = '';
 
             foreach ($jsonDecoded as $key => $item) {
@@ -30,10 +31,10 @@ class Task8
 }
 
 $json = '{
-            "Title": "The Cuckoos Calling",
-            "Author": "Robert Galbraith",
-            "Detail": {
-            "Publisher": "Little Brown"
-            }
-            }';
+"Title": "The Cuckoos Calling",
+"Author": "Robert Galbraith",
+"Detail": {
+"Publisher": "Little Brown"
+}
+}';
 Task8::main($json);
