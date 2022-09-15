@@ -19,10 +19,20 @@ class Task2
         if (!Task2::isDate($date)) {
             throw new \InvalidArgumentException('Invalid date format! Acceptable date format is DD-MM-YYYY');
         } else {
-            return date_diff(new \DateTime($date), new \DateTime())->days;
+            $diffDays = strtotime($date) - time();
+            if ($diffDays < 0) {
+                $date = date('d-m-Y', strtotime($date . ' next year'));
+                $diffDays = strtotime($date) - time();
+            }
+            $days = round($diffDays / 86400);
+            if ($days == 365) {
+                $days = 0;
+            }
+
+            return $days;
         }
     }
 }
 
-$date = '09-03-2023';
-Task2::main($date);
+$date = '14-09-2022';
+echo Task2::main($date);
