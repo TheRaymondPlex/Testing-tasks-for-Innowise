@@ -2,7 +2,6 @@
 
 namespace src;
 
-header('Content-type: text/plain');
 use JetBrains\PhpStorm\Pure;
 
 class Task5
@@ -71,12 +70,15 @@ class Task5
     }
 
 
-    #[Pure] public static function main($n): int
+    #[Pure] public static function main(int $n): string
     {
+        if ($n <= 0 || !is_int($n)) {
+            throw new \InvalidArgumentException('Main function accepts positive integers only. Your input was: ' . $n . ' (' . gettype($n) . ')');
+        }
         $i = 0;
         while (true) {
             if (Task5::numberOfDigits(++$i) >= $n) {
-                return $i;
+                return Task5::fib($i);
             }
         }
     }
@@ -88,8 +90,5 @@ class Task5
 //    echo $i . "=>" . Task5::fib($i) . PHP_EOL;
 //}
 
-//echo "First serial number of Fibonacci with length length 2: " . Task5::main(2) . PHP_EOL;
-//echo "First serial number of Fibonacci with length length 3: " . Task5::main(3) . PHP_EOL;
-
-$n = 100;
-Task5::fib(Task5::main($n));
+$n = 121;
+Task5::main($n);
