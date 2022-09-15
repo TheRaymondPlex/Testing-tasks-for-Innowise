@@ -4,7 +4,7 @@ namespace src;
 
 class Task1
 {
-    public static function main($input): string
+    public static function main(int $input): string
     {
         if (!is_int($input)) {
             throw new \InvalidArgumentException('task1 function only accepts integers. Your input was: ' . $input . ' (' . gettype($input) . ')');
@@ -17,5 +17,5 @@ class Task1
     }
 }
 
-$inputNumber = '';
+$inputNumber = 121;
 Task1::main($inputNumber);
