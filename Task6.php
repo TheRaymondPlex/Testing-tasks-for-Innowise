@@ -26,6 +26,11 @@ class Task6
         return ($yearB - $yearA) * 12 + $monthB - $monthA;
     }
 
+    public static function daysInMonth($month, $year): int|string
+    {
+        return $month == 2 ? ($year % 4 ? 28 : ($year % 100 ? 29 : ($year % 400 ? 28 : 29))) : (($month - 1) % 7 % 2 ? 30 : 31);
+    }
+
     public static function main(int $year, int $lastYear, int $month, int $lastMonth, string $day = 'Monday'): int
     {
         if (!is_int($year) || !is_int($lastYear) || !is_int($month) || !is_int($lastMonth)) {
@@ -50,7 +55,7 @@ class Task6
             $current_year = $year;
             $days_in_month = [];
             for ($i = 1; $i <= 12; $i++) {
-                array_push($days_in_month, \cal_days_in_month(CAL_GREGORIAN, $i, $current_year));
+                array_push($days_in_month, Task6::daysInMonth($i, $current_year));
             }
             // print_r($days_in_month);
 
@@ -86,7 +91,7 @@ class Task6
                     $current_month = 1;
                     $days_in_month = [];
                     for ($i = 1; $i <= 12; $i++) {
-                        array_push($days_in_month, \cal_days_in_month(CAL_GREGORIAN, $i, $current_year));
+                        array_push($days_in_month, Task6::daysInMonth($i, $current_year));
                     }
                 }
                 $delta--;
@@ -97,8 +102,8 @@ class Task6
     }
 }
 
-$year = 1900;
-$lastYear = 1900;
-$month = 2;
-$lastMonth = 3;
+$year = 1980;
+$lastYear = 2021;
+$month = 5;
+$lastMonth = 10;
 Task6::main($year, $lastYear, $month, $lastMonth);
