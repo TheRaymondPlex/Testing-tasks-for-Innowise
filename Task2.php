@@ -14,7 +14,7 @@ class Task2
         }
     }
 
-    public static function main(string $date): string
+    public static function main(string $date): int
     {
         if (!Task2::isDate($date)) {
             throw new \InvalidArgumentException('Invalid date format! Acceptable date format is DD-MM-YYYY');
